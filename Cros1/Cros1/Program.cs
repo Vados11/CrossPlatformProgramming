@@ -13,10 +13,8 @@ namespace Cros1
         {
             try
             {
-                // Читаємо вхідні дані з файлу INPUT.TXT
                 string[] inputLines = File.ReadAllLines("INPUT.txt");
 
-                // Розділяємо рядки вхідних даних на окремі значення
                 string[] inputValues = inputLines[0].Split(' ');
                 int n = int.Parse(inputValues[0]); // Кількість карт в руках гравця
                 int m = int.Parse(inputValues[1]); // Кількість карт, які потрібно відбити
@@ -28,7 +26,6 @@ namespace Cros1
                 // Перевіряємо, чи можна дати відсіч
                 bool canDefend = CanDefend(playerCards, targetCards, r);
 
-                // Записуємо результат у файл OUTPUT.TXT
                 File.WriteAllText("OUTPUT.txt", canDefend ? "Так" : "Ні");
             }
             catch (Exception ex)
