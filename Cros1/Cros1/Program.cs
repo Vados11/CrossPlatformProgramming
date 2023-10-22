@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace Cros1
 {
@@ -13,24 +10,62 @@ namespace Cros1
         {
             try
             {
+                // Читаємо вхідні дані з файлу INPUT.TXT
                 string[] inputLines = File.ReadAllLines("INPUT.txt");
 
-                string[] inputValues = inputLines[0].Split(' ');
-                int n = int.Parse(inputValues[0]); // Кількість карт в руках гравця
-                int m = int.Parse(inputValues[1]); // Кількість карт, які потрібно відбити
-                char r = char.Parse(inputValues[2]); // Козирний костюм
+                if (inputLines.Length != 3)
+                {
+                    Console.WriteLine("The input data format is incorrect. Enter the correct data in the INPUT.TXT file");
+                    Console.ReadLine();
+                    return;
+                }
 
-                string[] playerCards = inputLines[1].Split(' '); // Карти в руках гравця
-                string[] targetCards = inputLines[2].Split(' '); // Карти, які потрібно відбити
+                // Розділяємо рядки вхідних даних на окремі значення
+                string[] inputValues = inputLines[0].Split(' ');
+
+                if (inputValues.Length != 3)
+                {
+                    Console.WriteLine("The input data format is incorrect. Enter the correct data in the INPUT.TXT file");
+                    Console.ReadLine();
+                    return;
+                }
+
+                int n, m;
+                if (!int.TryParse(inputValues[0], out n) || !int.TryParse(inputValues[1], out m))
+                {
+                    Console.WriteLine("An error occurred when reading the number of cards. Enter the correct data in the INPUT.TXT file");
+                    Console.ReadLine();
+                    return;
+                }
+
+                char r;
+                if (inputValues[2].Length != 1 || !char.TryParse(inputValues[2], out r))
+                {
+                    Console.WriteLine("Error reading trump suit. Enter the correct data in the INPUT.TXT file");
+                    Console.ReadLine();
+                    return;
+                }
+
+                string[] playerCards = inputLines[1].Split(' ');
+                string[] targetCards = inputLines[2].Split(' ');
+
+                if (playerCards.Length != n || targetCards.Length != m)
+                {
+                    Console.WriteLine("Incorrect number of cards in the player's hands or cards to reflect. Check the data in the INPUT.TXT file");
+                    Console.ReadLine();
+                    return;
+                }
 
                 // Перевіряємо, чи можна дати відсіч
                 bool canDefend = CanDefend(playerCards, targetCards, r);
 
-                File.WriteAllText("OUTPUT.txt", canDefend ? "Так" : "Ні");
+                // Записуємо результат у файл OUTPUT.TXT
+                File.WriteAllText("OUTPUT.txt", canDefend ? "Yes" : "No");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Помилка: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
+                Console.ReadLine();
             }
         }
 
