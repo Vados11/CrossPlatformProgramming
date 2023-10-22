@@ -10,67 +10,96 @@ namespace Cros4Classes
     {
         public static void Run(string inputFile, string outputFile)
         {
-            var lines = File.ReadAllLines(inputFile);
-            var nm = lines[0].Split(' ').Select(int.Parse).ToArray();
-            int n = nm[0];
-            int m = nm[1];
-
-            var edges = new List<Edge>();
-
-            for (int i = 1; i <= m; i++)
+            try
             {
-                var edgeData = lines[i].Split(' ').Select(int.Parse).ToArray();
-                edges.Add(new Edge(edgeData[0] - 1, edgeData[1] - 1, edgeData[2], i));
-            }
+                var lines = File.ReadAllLines(inputFile);
 
-            int bestCost = int.MaxValue;
-            List<int> bestPath = null;
-
-            for (int mask = 0; mask < (1 << m); mask++)
-            {
-                var adjList = new List<Edge>[n];
-                for (int i = 0; i < n; i++)
+                if (lines.Length < 2)
                 {
-                    adjList[i] = new List<Edge>();
+                    throw new Exception("Not enough input data");
                 }
 
-                int currentCost = 0;
+                var nm = lines[0].Split(' ').Select(int.Parse).ToArray();
+                int n = nm[0];
+                int m = nm[1];
 
-                for (int j = 0; j < m; j++)
+                if (lines.Length < m + 1)
                 {
-                    if ((mask & (1 << j)) != 0)
+                    throw new Exception("Not enough data about the edges of the graph.");
+                }
+
+                var edges = new List<Edge>();
+
+                for (int i = 1; i <= m; i++)
+                {
+                    var edgeData = lines[i].Split(' ').Select(int.Parse).ToArray();
+
+                    if (edgeData.Length != 3)
                     {
-                        adjList[edges[j].U].Add(edges[j]);
-                        currentCost += edges[j].Weight;
+                        throw new Exception("Incorrect data for graph edge.");
                     }
+
+                    edges.Add(new Edge(edgeData[0] - 1, edgeData[1] - 1, edgeData[2], i));
                 }
 
-                var visited = new bool[n];
-                DFS(0, visited, adjList);
+                int bestCost = int.MaxValue;
+                List<int> bestPath = null;
 
-                if (visited.All(v => v) && currentCost < bestCost)
+                for (int mask = 0; mask < (1 << m); mask++)
                 {
-                    bestCost = currentCost;
-                    bestPath = new List<int>();
+                    adjList = new List<Edge>[n];
+                    for (int i = 0; i < n; i++)
+                    {
+                        adjList[i] = new List<Edge>();
+                    }
+
+                    int currentCost = 0;
 
                     for (int j = 0; j < m; j++)
                     {
                         if ((mask & (1 << j)) != 0)
-                            bestPath.Add(edges[j].Index);
+                        {
+                            adjList[edges[j].U].Add(edges[j]);
+                            currentCost += edges[j].Weight;
+                        }
+                    }
+
+                    visited = new bool[n];
+                    DFS(0);
+
+                    if (visited.All(v => v) && currentCost < bestCost)
+                    {
+                        bestCost = currentCost;
+                        bestPath = new List<int>();
+
+                        for (int j = 0; j < m; j++)
+                        {
+                            if ((mask & (1 << j)) != 0)
+                                bestPath.Add(edges[j].Index);
+                        }
                     }
                 }
-            }
 
-            File.WriteAllText(outputFile, $"{bestCost} {bestPath.Count}\n{string.Join(" ", bestPath)}");
+                File.WriteAllText(outputFile, $"{bestCost} {bestPath.Count}\n{string.Join(" ", bestPath)}");
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText(outputFile, "-1"); // Вивести -1 у випадку помилки
+                Console.WriteLine("Error: " + ex.Message);
+                Console.ReadLine();
+            }
         }
 
-        public static void DFS(int node, bool[] visited, List<Edge>[] adjList)
+        public static List<Edge>[] adjList;
+        public static bool[] visited;
+
+        public static void DFS(int node)
         {
             visited[node] = true;
             foreach (var edge in adjList[node])
             {
                 if (!visited[edge.V])
-                    DFS(edge.V, visited, adjList);
+                    DFS(edge.V);
             }
         }
     }
