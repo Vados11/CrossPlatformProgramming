@@ -1,0 +1,64 @@
+# Пакування nuget пакету
+```
+dotnet pack -c Release
+dotnet nuget push VDavydenko.1.0.0.nupkg --source http://127.0.0.1/nuget
+```
+
+# Файл конфігурації Vagrant для Linux
+```
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/debian10"
+
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = true
+    vb.memory = "1024"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https
+
+    sudo dpkg --purge packages-microsoft-prod && sudo dpkg -i packages-microsoft-prod.deb
+    sudo apt-get update
+    sudo apt-get install -y gpg
+    wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o microsoft.asc.gpg
+    sudo mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
+    wget https://packages.microsoft.com/config/ubuntu/20.04/prod.list
+    sudo mv prod.list /etc/apt/sources.list.d/microsoft-prod.list
+    sudo chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg
+    sudo chown root:root /etc/apt/sources.list.d/microsoft-prod.list
+    sudo apt-get update && \
+    sudo apt-get install -y dotnet-sdk-7.0
+
+    echo 'export PATH=$PATH:$HOME/.dotnet/tools' >> /home/vagrant/.bash_profile
+    su - vagrant -c "dotnet nuget add source http://10.0.2.2:3000/nuget"
+    su - vagrant -c "dotnet tool install -g VDavydenko --version 1.0.0 --ignore-failed-sources"
+  SHELL
+end
+```
+
+# Файл конфігурації Vagrant для Windows
+```
+Vagrant.configure("2") do |config|
+  config.vm.box = "gusztavvargadr/windows-10"
+  
+  config.vm.network "private_network", type: "dhcp"
+
+  config.vm.provision "shell", privileged: true, inline: <<-SHELL
+    # Ensure PowerShell is set to use TLS1.2
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+    # Install the .NET Core SDK
+    Invoke-WebRequest -OutFile dotnet-sdk-installer.exe https://download.visualstudio.microsoft.com/download/pr/xxx/xxx/dotnet-sdk-xxx-win-x64.exe
+    Start-Process -Wait -FilePath .\dotnet-sdk-installer.exe
+    Remove-Item dotnet-sdk-installer.exe
+  SHELL
+end
+```
+
+# Додавання джерела nuget пакетів та встановлення відповідного пакету у Windows
+```
+dotnet nuget add source http://10.0.2.2:3000/nuget
+dotnet tool install -g VDavydenko --version 1.0.0 --ignore-failed-sources
+```
