@@ -1,0 +1,130 @@
+﻿@model Cros5.Models.LabModel
+
+<style>
+    .footer {
+        display: none;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+
+    h2 {
+        color: #555;
+    }
+
+    p {
+        color: #777;
+    }
+
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="submit"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[readonly] {
+        background-color: #eee;
+        cursor: not-allowed;
+    }
+
+    .btn {
+        background-color: #4CAF50; /* Зелений колір */
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        padding: 12px 24px;
+        border-radius: 6px;
+        transition-duration: 0.4s;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .form-container {
+        text-align: center; /* Центрування вмісту всередині контейнера */
+    }
+
+    .btn:hover {
+            background-color: #45a049; /* Зелений колір при наведенні курсору */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="container">
+    <h1>Лабораторна робота 1</h1>
+    <h2>Умова задачі:</h2>
+    <p>Пітер вирішив реалізувати гру "Дурень". В цій грі гравець має можливість відбити карти, використовуючи обмежену кількість карт у своїй руці. Для цього необхідно прикрити кожну з карт, які роблять хід, використовуючи наявні карти у гравця. Гравець може прикрити карту або старшою картою тієї ж масті або карткою козирного костюму. Карта може бути прикрита лише один раз.</p>
+
+    <form asp-controller="Labs" asp-action="Calculate" method="post">
+        <div class="form-group">
+            <label for="Input">Введіть дані:</label>
+            <input asp-for="LabNumber" type="hidden" value="1" />
+            <textarea asp-for="Input" class="form-control" id="Input" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn">Обчислити</button>
+    </form>
+    <div class="form-group">
+        <label for="Output">Результат:</label>
+        <input asp-for="Output" class="form-control" id="Output" readonly />
+    </div>
+
+    <h2>Вхідні дані:</h2>
+    <p>
+        У першому рядку вхідного файлу INPUT.TXT знаходяться:<br>
+        Два натуральних числа N і M (де N ≤ 35, M ≤ 4, M ≤ N), які відповідають кількості карт у руках гравця та кількості карт, які потрібно відбити.<br>
+        Символ R, що позначає козирний костюм.<br>
+        У другому рядку перераховані N карт в руках гравця, розділені пробілами.<br>
+        У третьому рядку перераховані карти M, які потрібно відбити, розділені пробілами.<br>
+    </p>
+
+    <h2>Вихідні дані:</h2>
+    <p>
+        У вихідному файлі OUTPUT.TXT необхідно вивести:<br>
+        "Yes", якщо гравець може відбити карти.<br>
+        "No", якщо гравець не може відбити карти.<br>
+    </p>
+
+    <h2>Приклад</h2>
+    <p>
+        <b>INPUT:</b><br>
+        6 3 S<br>
+        5S 8D KS AH QC 4H<br>
+        2S 3S 6H<br>
+        <b>OUTPUT:</b> Yes
+    </p>
+</div>

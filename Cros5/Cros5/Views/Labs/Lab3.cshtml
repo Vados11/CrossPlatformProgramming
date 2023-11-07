@@ -1,0 +1,130 @@
+﻿@model Cros5.Models.LabModel
+
+<style>
+    .footer {
+        display: none;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+
+    h2 {
+        color: #555;
+    }
+
+    p {
+        color: #777;
+    }
+
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="submit"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[readonly] {
+        background-color: #eee;
+        cursor: not-allowed;
+    }
+
+    .btn {
+        background-color: #4CAF50; /* Зелений колір */
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        padding: 12px 24px;
+        border-radius: 6px;
+        transition-duration: 0.4s;
+        display: block;
+        margin: 0 auto;
+    }
+
+        .btn:hover {
+            background-color: #45a049; /* Зелений колір при наведенні курсору */
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    #Output {
+        pointer-events: none;
+        background-color: #f5f5f5; /* Опціонально: зміна кольору фону */
+    }
+</style>
+
+<div class="container">
+    <h1>Лабораторна робота 3</h1>
+    <h2>Умова задачі:</h2>
+    <p>
+        Необхідно розробити програму для вибору найбільш вигідного набору односпрямованих каналів зв'язку, які дозволять передати файл від головного офісу компанії (місто 1) до будь-якої іншої філії, з урахуванням мінімальної вартості передачі.
+    </p>
+
+    <form asp-controller="Labs" asp-action="Calculate" method="post">
+        <div class="form-group">
+            <label for="Input">Введіть дані:</label>
+            <input asp-for="LabNumber" type="hidden" value="3" />
+            <textarea asp-for="Input" class="form-control" id="Input" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn">Обчислити</button>
+    </form>
+    <div class="form-group">
+        <label for="Output">Результат:</label>
+        <textarea asp-for="Output" class="form-control" id="Output" readonly rows="3"></textarea>
+    </div>
+
+
+    <h2>Вхідні дані:</h2>
+    <p>
+        Перший рядок вхідного файлу INPUT.TXT містить числа n і m - кількість міст і кількість каналів зв'язку відповідно (1 ≤ n ≤ 22, 0 ≤ m ≤ 22). Наступні m містять опис каналів зв'язку. Кожен опис містить три цілих числа: u, v і c - відповідно номери міст, з'єднаних каналом і вартість пересилання файлу цим каналом (1 ≤ u, v ≤ n, 0 ≤ c ≤ 1000). Жоден із каналів не з'єднує місто із самим собою, але між двома містами може бути більше одного каналу.
+    </p>
+
+    <h2>Вихідні дані:</h2>
+    <p>
+        У першому рядку вихідного файлу OUTPUT.TXT виведіть вартість пересилання файлу та кількість каналів, які забезпечують таку вартість. У другому рядку виведіть номери каналів, що становлять такий набір. Канали нумеруються від 1 до m у тому порядку, в якому вони перераховані у вхідному файлі.
+    </p>
+
+    <h2>Приклад</h2>
+    <p>
+        <b>INPUT:</b><br>
+        2 2<br />
+        1 2 3<br />
+        1 2 4<br />
+        <b>OUTPUT:</b><br />
+        3 1<br />
+        1
+    </p>
+</div>

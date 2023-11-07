@@ -1,0 +1,121 @@
+﻿@model Cros5.Models.LabModel
+
+<style>
+    .footer {
+        display: none;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+
+    h2 {
+        color: #555;
+    }
+
+    p {
+        color: #777;
+    }
+
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="submit"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[readonly] {
+        background-color: #eee;
+        cursor: not-allowed;
+    }
+
+    .btn {
+        background-color: #4CAF50; /* Зелений колір */
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        padding: 12px 24px;
+        border-radius: 6px;
+        transition-duration: 0.4s;
+        display: block;
+        margin: 0 auto;
+    }
+
+        .btn:hover {
+            background-color: #45a049; /* Зелений колір при наведенні курсору */
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="container">
+    <h1>Лабораторна робота 2</h1>
+    <h2>Умова задачі:</h2>
+    <p>Мишко та Маша купували подарунок, використовуючи лише одну велику купюру. У продавця було декілька монет різних номіналів. Потрібно знайти мінімальну кількість монет, яку продавець може віддати, або визначити, що продавець зовсім не зможе видати здачу.</p>
+
+    <form asp-controller="Labs" asp-action="Calculate" method="post">
+        <div class="form-group">
+            <label for="Input">Введіть дані:</label>
+            <input asp-for="LabNumber" type="hidden" value="2" />
+            <textarea asp-for="Input" class="form-control" id="Input" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn">Обчислити</button>
+    </form>
+    <div class="form-group">
+        <label for="Output">Результат:</label>
+        <input asp-for="Output" class="form-control" id="Output" readonly />
+    </div>
+
+    <h2>Вхідні дані:</h2>
+    <p>
+        У першому рядку вхідного файлу INPUT.TXT записано число N (1 ≤ N ≤ 10) – кількість різних номіналів монет у касі. На наступному рядку міститься N цілих чисел ai (0 < ai ≤ 2000) – номінали монет.<br>
+        Третій рядок містить одне число K (1 ≤ K ≤ 106) – суму, яку потрібно набрати.
+    </p>
+
+    <h2>Вихідні дані:</h2>
+    <p>
+        У вихідний файл OUTPUT.TXT потрібно вивести мінімальну кількість монет, яку доведеться віддати продавцю, або -1, якщо продавець взагалі не зможе видати здачу.
+    </p>
+
+    <h2>Приклад</h2>
+    <p>
+        <b>INPUT:</b><br>
+        3<br />
+        1 5 7<br />
+        19<br />
+        <b>OUTPUT:</b> 3
+    </p>
+</div>
