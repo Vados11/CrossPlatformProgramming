@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cros5", "Cros5\Cros5.csproj", "{8D46ECEB-87D7-434E-B2CE-72824288C3BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cros4Classes", "Cros4Classes\Cros4Classes.csproj", "{9AB12DC5-7DBA-4F34-8032-7569D9CB930D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D46ECEB-87D7-434E-B2CE-72824288C3BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D46ECEB-87D7-434E-B2CE-72824288C3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D46ECEB-87D7-434E-B2CE-72824288C3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D46ECEB-87D7-434E-B2CE-72824288C3BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AB12DC5-7DBA-4F34-8032-7569D9CB930D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB12DC5-7DBA-4F34-8032-7569D9CB930D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AB12DC5-7DBA-4F34-8032-7569D9CB930D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB12DC5-7DBA-4F34-8032-7569D9CB930D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F35E4530-3F99-48D9-B039-CDE58C8A8D78}
+	EndGlobalSection
+EndGlobal
