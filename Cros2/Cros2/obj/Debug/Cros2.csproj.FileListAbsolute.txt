@@ -1,7 +1,0 @@
-C:\Users\vladd\source\repos\Cros2\Cros2\bin\Debug\Cros2.exe.config
-C:\Users\vladd\source\repos\Cros2\Cros2\bin\Debug\Cros2.exe
-C:\Users\vladd\source\repos\Cros2\Cros2\bin\Debug\Cros2.pdb
-C:\Users\vladd\source\repos\Cros2\Cros2\obj\Debug\Cros2.csproj.AssemblyReference.cache
-C:\Users\vladd\source\repos\Cros2\Cros2\obj\Debug\Cros2.csproj.CoreCompileInputs.cache
-C:\Users\vladd\source\repos\Cros2\Cros2\obj\Debug\Cros2.exe
-C:\Users\vladd\source\repos\Cros2\Cros2\obj\Debug\Cros2.pdb
